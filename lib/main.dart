@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_notepad/Screen/note_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,24 +12,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Home(),
+      home: NoteScreen(),
 
 
-    );
-  }
-}
-
-
-class Home extends StatelessWidget {
-  const Home({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Node Pad", style: TextStyle(color: Colors.white),),
-        backgroundColor: Colors.blue,
-      ),
     );
   }
 }
