@@ -73,7 +73,7 @@ class NoteScreen extends StatelessWidget {
                           SizedBox(width: 10,),
                           InkWell(
                             onTap: (){
-
+                              _showDelete(context, index, noteController.notes[index].id, noteController.notes[index].name, noteController.notes[index].department);
                             },
                             child: Icon(Icons.delete, color: Colors.deepOrange,),
                           )
@@ -94,8 +94,76 @@ class NoteScreen extends StatelessWidget {
     );
   }
 
-  // =============== Update ==================
 
+    // ============= Delete ================
+  _showDelete(BuildContext context, index, id, name, dep){
+ 
+    return showDialog(
+      context: context,builder: (_){
+        
+        return Center(
+          child: SingleChildScrollView(
+            child: Center(
+              child: AlertDialog(
+                content: Column(
+                  children: [
+                   Text("Are you sure you want to delete the item?"),
+                   SizedBox(height: 10),
+                   Card(
+                     child: ListTile(
+                        leading: Text(
+                          id
+                        ),
+                        title: Text(
+                          name
+                        ),
+                        subtitle: Text(
+                          dep
+                        ),
+                      ),
+                   ),
+                  ],
+                ),
+              
+                actions: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      ElevatedButton(
+                        onPressed: (){
+                          Navigator.pop(context);
+                        }, 
+                        child: Text("Cancle", style: TextStyle(color: Colors.white),),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: brownColor,
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: (){
+                          noteController.deleteNote(index);
+                          Navigator.pop(context);
+                        }, 
+                        child: Text("Yes", style: TextStyle(color: Colors.white),),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.deepOrange,
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              
+              ),
+            ),
+          ),
+        );
+      }
+    );
+
+
+  }
+
+
+  // =============== Update ==================
   _showUpdate(BuildContext context, int index, String id, String name, String dep){
     idControllerUpdate.text = id;
     nameControllerUpdate.text = name;
@@ -143,6 +211,7 @@ class NoteScreen extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.deepOrange,
                   ),
+                  
                 ),
                 ElevatedButton(
                   onPressed: (){
@@ -157,7 +226,7 @@ class NoteScreen extends StatelessWidget {
                   }, 
                   child: Text("Update", style: TextStyle(color: Colors.white),),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepOrange,
+                    backgroundColor: brownColor,
                   ),
                 ),
               ],
@@ -177,7 +246,9 @@ class NoteScreen extends StatelessWidget {
 
   // ============= Create ================
   _showDialogue(BuildContext context){
-
+    idController.text = "";
+    nameController.text = "";
+    depController.text = "";
 
     return showDialog(
       context: context,builder: (_){
@@ -232,7 +303,7 @@ class NoteScreen extends StatelessWidget {
                   }, 
                   child: Text("Submit", style: TextStyle(color: Colors.white),),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepOrange,
+                    backgroundColor: brownColor,
                   ),
                 ),
               ],

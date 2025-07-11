@@ -25,4 +25,10 @@ class NoteController extends GetxController {
   }
 
 
+  void deleteNote(int index){
+    notes.removeAt(index);
+    update();
+  }
+
+
 }
