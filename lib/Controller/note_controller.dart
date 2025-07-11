@@ -17,4 +17,12 @@ class NoteController extends GetxController {
   }
 
 
+  void updateNote(NoteModel note, int index){
+    
+    notes[index]=note; // ei index a note giye set hoye jabe
+    update();
+
+  }
+
+
 }

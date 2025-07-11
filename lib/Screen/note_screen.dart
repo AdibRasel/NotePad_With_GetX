@@ -13,6 +13,13 @@ class NoteScreen extends StatelessWidget {
   TextEditingController depController = TextEditingController(); // instance
 
 
+
+  
+  TextEditingController idControllerUpdate = TextEditingController(); // instance
+  TextEditingController nameControllerUpdate = TextEditingController(); // instance
+  TextEditingController depControllerUpdate = TextEditingController(); // instance
+
+
   NoteController noteController = Get.put(NoteController()); // instance
 
 
@@ -52,6 +59,28 @@ class NoteScreen extends StatelessWidget {
                     subtitle: Text(
                       noteController.notes[index].department
                     ),
+                    trailing: Container(
+                      width: 100,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          InkWell(
+                            onTap: (){
+                              _showUpdate(context, index, noteController.notes[index].id, noteController.notes[index].name, noteController.notes[index].department);
+                            },
+                            child: Icon(Icons.edit),
+                          ),
+                          SizedBox(width: 10,),
+                          InkWell(
+                            onTap: (){
+
+                            },
+                            child: Icon(Icons.delete, color: Colors.deepOrange,),
+                          )
+
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               );
@@ -65,10 +94,88 @@ class NoteScreen extends StatelessWidget {
     );
   }
 
+  // =============== Update ==================
+
+  _showUpdate(BuildContext context, int index, String id, String name, String dep){
+    idControllerUpdate.text = id;
+    nameControllerUpdate.text = name;
+    depControllerUpdate.text = dep;
+
+ 
+
+    return showDialog(
+      context: context,builder: (_){
+        
+        return Center(
+          child: SingleChildScrollView(
+            child: AlertDialog(
+              content: Column(
+                children: [
+                  TextField(
+                    controller: idControllerUpdate,
+                    decoration: InputDecoration(
+                      hintText: "Student ID",
+                    ),
+                  ),
+                  SizedBox(height: 10,),
+                  TextField(
+                    controller: nameControllerUpdate,
+                    decoration: InputDecoration(
+                      hintText: "Name",
+                    ),
+                  ),
+                  SizedBox(height: 10,),
+                  TextField(
+                    controller: depControllerUpdate,
+                    decoration: InputDecoration(
+                      hintText: "Department",
+                    ),
+                  ),
+                ],
+              ),
+            
+              actions: [
+                ElevatedButton(
+                  onPressed: (){
+                    Navigator.pop(context);
+                  }, 
+                  child: Text("Cancle", style: TextStyle(color: Colors.white),),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.deepOrange,
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: (){
+
+                    noteController.updateNote(
+                      NoteModel(idControllerUpdate.text, nameControllerUpdate.text, depControllerUpdate.text,),
+                      index
+                    );
+                    Navigator.pop(context);
+
+
+                  }, 
+                  child: Text("Update", style: TextStyle(color: Colors.white),),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.deepOrange,
+                  ),
+                ),
+              ],
+            
+            ),
+          ),
+        );
+      }
+    );
+
+
+  }
 
 
 
 
+
+  // ============= Create ================
   _showDialogue(BuildContext context){
 
 
