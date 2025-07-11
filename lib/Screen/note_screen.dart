@@ -34,7 +34,7 @@ class NoteScreen extends StatelessWidget {
     return Scaffold(
 
       appBar: AppBar(
-        title: Text("Note", style: TextStyle(color: Colors.white),),
+        title: Text("Noted", style: TextStyle(color: Colors.white),),
         backgroundColor: brownColor,
         elevation: 2,
       ),
